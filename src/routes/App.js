@@ -29,7 +29,11 @@ function App({children}) {
                 <Menu.Item key="book">图书管理</Menu.Item>
                 <Menu.Item key="author">作者管理</Menu.Item>
                 <Menu.Item key="type">类型管理</Menu.Item>
-                <Menu.Item key="label">标签管理</Menu.Item>
+                <Menu.Item key="label">
+                  <Link to="/bookLabel">
+                    标签管理
+                  </Link>
+                </Menu.Item>
               </SubMenu>
               <Menu.Item key="userManager">
                 <Link to="/user">
