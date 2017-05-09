@@ -5,8 +5,8 @@ import './index.css';
 const app = dva();
 
 app.model(require("./models/app"));
-
 app.model(require("./models/user"));
+app.model(require("./models/bookManager/bookLabel"));
 
 // 2. Plugins
 // app.use({});
