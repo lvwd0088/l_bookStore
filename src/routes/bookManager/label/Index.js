@@ -8,7 +8,7 @@ function BookLabel({bookLabel,dispatch}) {
   const {list,inputVisible} = bookLabel;
   const tagsJSX=[];
   const labelInput= input => this.input = input
-  console.log(list);
+  
   list.map((data,index)=>{
     tagsJSX.push(
       <Tag
@@ -22,10 +22,11 @@ function BookLabel({bookLabel,dispatch}) {
   });
 
   function handleDelete(index){
-    list.splice(index,1);
     dispatch({
       type:'bookLabel/deleteTag',
-      payload:list
+      payload:{
+        index
+      }
     });
   }
 
@@ -39,15 +40,12 @@ function BookLabel({bookLabel,dispatch}) {
 
   function handleInputConfirm(e){
     if(e.target.value.trim()){
-      list.push(
-        {
+      dispatch({
+        type:'bookLabel/saveTag',
+        payload:{
           name:e.target.value.trim(),
           count:0
         }
-      );
-      dispatch({
-        type:'bookLabel/saveTag',
-        payload:list
       });
     }else{
       dispatch({

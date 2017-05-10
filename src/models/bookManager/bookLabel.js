@@ -44,6 +44,8 @@ export default {
       }
     },
     saveTag(state,action){
+      let list = state.list;
+      list.push(action.payload)
       return {
         ...state,
         inputVisible:false
@@ -52,8 +54,7 @@ export default {
     deleteTag(state,action){
       return {
         ...state,
-        inputVisible:false,
-        ...action.payload
+        inputVisible:false
       }
     }
   },
