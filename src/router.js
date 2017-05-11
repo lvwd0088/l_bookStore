@@ -5,6 +5,7 @@ import App from "./routes/App.js";
 import Home from "./routes/index/Home.js";
 import User from "./routes/userManager/User.js";
 import BookLabel from "./routes/bookManager/label/Index.js";
+import BookType from "./routes/bookManager/type/Index.js";
 
 function RouterConfig({ history }) {
   return (
@@ -13,7 +14,9 @@ function RouterConfig({ history }) {
         <IndexRoute component={Home} />
         <Route path="/user" component={User} />
         <Route path="/bookLabel" component={BookLabel} />
+        <Route path="/bookType" component={BookType} />
       </Route>
+      <Route path="/index" component={Index} />
     </Router>
   );
 }
