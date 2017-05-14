@@ -7,6 +7,7 @@ import User from "./routes/userManager/User.js";
 import BookLabel from "./routes/bookManager/label/Index.js";
 import BookType from "./routes/bookManager/type/Index.js";
 
+
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
@@ -16,7 +17,6 @@ function RouterConfig({ history }) {
         <Route path="/bookLabel" component={BookLabel} />
         <Route path="/bookType" component={BookType} />
       </Route>
-      <Route path="/index" component={Index} />
     </Router>
   );
 }

@@ -28,7 +28,11 @@ function App({children}) {
               <SubMenu key="bookManager" title={<span><Icon type="book" />资源管理</span>}>
                 <Menu.Item key="book">图书管理</Menu.Item>
                 <Menu.Item key="author">作者管理</Menu.Item>
-                <Menu.Item key="type">类型管理</Menu.Item>
+                <Menu.Item key="type">
+                  <Link to="/bookType">
+                    类型管理
+                  </Link>
+                </Menu.Item>
                 <Menu.Item key="label">
                   <Link to="/bookLabel">
                     标签管理
