@@ -6,6 +6,7 @@ const app = dva();
 
 app.model(require("./models/app"));
 app.model(require("./models/user"));
+app.model(require("./models/bookManager/book"));
 app.model(require("./models/bookManager/bookType"));
 app.model(require("./models/bookManager/bookLabel"));
 
