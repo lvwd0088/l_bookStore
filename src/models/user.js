@@ -1,3 +1,4 @@
+import {query} from '../services/user'
 
 export default {
   namespace: 'user',
@@ -90,8 +91,34 @@ export default {
         ...state,
         modalVisible:false
       }
+    },
+    querySuccess(state,action){
+      const {list,pagination}=action.payload;
+      return {
+        ...state,
+        list,
+        pagination:{
+          ...state.pagination,
+          ...pagination
+        }
+      }
     }
   },
-  effects: {},
-  subscriptions: {},
+  effects: {
+    *query({payload},{call,put}){
+      const data=yield call(query,payload);
+      if(data){
+        yield put({
+          type:'querySuccess',
+          payliad:{
+            list:data.data,
+            pagination:data.page
+          }
+        })
+      }
+    }
+  },
+  subscriptions: {
+
+  },
 };
