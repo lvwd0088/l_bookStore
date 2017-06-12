@@ -13,7 +13,6 @@ function User({user,dispatch}) {
     dataSource:list,
     pagination,
     handleUpdate(data){
-      console.log(data);
       dispatch({
         type:'user/showModal',
         payload:{

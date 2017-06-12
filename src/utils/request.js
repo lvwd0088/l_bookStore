@@ -5,13 +5,14 @@ function parseJSON(response) {
 }
 
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
+  if(response.status<200||response.status>=300){
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
   }
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  return response;
+
 }
 
 /**
@@ -21,10 +22,23 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, options) {
+export function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(data => ({ data }))
     .catch(err => ({ err }));
+}
+
+export function remove(url){
+  return request(url,{method:'delete'});
+    // .then(checkStatus)
+    // .then(err=>({err}));
+}
+
+export function patchUpdate(url,data){
+  return request(url,{
+    method:'patch',
+    body:JSON.stringify(data)
+  })
 }

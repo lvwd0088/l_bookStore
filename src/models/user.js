@@ -1,76 +1,10 @@
 import {query} from '../services/user'
+import * as userService from '../services/user';
 
 export default {
   namespace: 'user',
   state: {
-    list:[
-      {
-        id:1,
-        userName:'流云谷',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      },
-      {
-        id:2,
-        userName:'流云谷2',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      },
-      {
-        id:3,
-        userName:'流云谷3',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      },
-      {
-        id:4,
-        userName:'流云谷4',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      },
-      {
-        id:5,
-        userName:'流云谷5',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      },
-      {
-        id:6,
-        userName:'流云谷6',
-        sex:'男',
-        mobile:13323323333,
-        email:'290994589@qq.com',
-        accountRemain:99,
-        accountType:'普通用户',
-        registerTime:'2017-05-07 21:48:01',
-        lastLoginTime:'2017-05-07 21:48:01'
-      }
-    ],
+    list:[],
     pagination:{
       pageSize:5
     },
@@ -93,32 +27,37 @@ export default {
       }
     },
     querySuccess(state,action){
-      const {list,pagination}=action.payload;
+      const {list}=action.payload;
       return {
         ...state,
-        list,
-        pagination:{
-          ...state.pagination,
-          ...pagination
-        }
+        list
       }
     }
   },
   effects: {
-    *query({payload},{call,put}){
-      const data=yield call(query,payload);
-      if(data){
-        yield put({
-          type:'querySuccess',
-          payliad:{
-            list:data.data,
-            pagination:data.page
-          }
-        })
-      }
+    *fetch({payload},{call,put}){
+      const respObj=yield call(userService.fetch,payload);
+      const {data}=respObj.data;
+      yield put({
+        type:'querySuccess',
+        payload:{
+          list:data
+        }
+      });
     }
   },
   subscriptions: {
-
+    setup({dispatch,history}){
+      return history.listen(
+        ({pathname,query})=>{
+          if(pathname==='/user'){
+            dispatch({
+              type:'fetch',
+              payload:query
+            })
+          }
+        }
+      )
+    }
   },
 };

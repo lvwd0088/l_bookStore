@@ -41,7 +41,7 @@ function UserList({dataSource,pagination,handleUpdate}){
       )
     }
   ];
-
+  console.log(dataSource);
   return (
     <Table
       dataSource={dataSource}
