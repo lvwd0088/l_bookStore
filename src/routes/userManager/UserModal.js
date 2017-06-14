@@ -16,8 +16,6 @@ function UserModal({
   handleCancel
 }){
 
-  console.log(item);
-
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },

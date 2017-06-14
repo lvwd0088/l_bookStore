@@ -7,7 +7,7 @@ import UserModal from './UserModal';
 
 function User({user,dispatch}) {
 
-  const {list,pagination,currentItem,modalVisible,modalType} = user;
+  const {list,pagination,currentItem,modalVisible,modalType,userType,searchValue,datePickerValue} = user;
 
   const userListProps={
     dataSource:list,
@@ -51,6 +51,33 @@ function User({user,dispatch}) {
         }
       })
     },
+    handleUserTypeChange(e){
+      dispatch({
+        type:'user/changeUserFilter',
+        payload:{
+          userType:e.target.value
+        }
+      });
+    },
+    handleDatePickerSearch(value,dateString){
+      dispatch({
+        type:'user/changeUserFilter',
+        payload:{
+          datePickerValue:value
+        }
+      });
+    },
+    handleInputSearch(value){
+      dispatch({
+        type:'user/changeUserFilter',
+        payload:{
+          searchValue:value
+        }
+      });
+    },
+    userType,
+    searchValue,
+    datePickerValue
   }
 
   return (

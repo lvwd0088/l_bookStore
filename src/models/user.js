@@ -10,7 +10,10 @@ export default {
     },
     currentItem:{},
     modalVisible:false,
-    modalType:'create'
+    modalType:'create',
+    userType:1,
+    searchValue:null,
+    datePickerValue:null
   },
   reducers: {
     showModal(state,action){
@@ -24,6 +27,12 @@ export default {
       return {
         ...state,
         modalVisible:false
+      }
+    },
+    changeUserFilter(state,action){
+      return{
+        ...state,
+        ...action.payload
       }
     },
     querySuccess(state,action){

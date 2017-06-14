@@ -41,12 +41,12 @@ function UserList({dataSource,pagination,handleUpdate}){
       )
     }
   ];
-  console.log(dataSource);
   return (
     <Table
       dataSource={dataSource}
       columns={columns}
       pagination={pagination}
+      onChange={(page)=>{console.log(page);}}
       rowKey="id"
       />
   )
