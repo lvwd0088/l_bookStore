@@ -1,7 +1,7 @@
 import React,{PropTypes} from 'react';
 import { Table} from 'antd';
 
-function UserList({dataSource,pagination,handleUpdate}){
+function UserList({dataSource,pagination,handleUpdate,handlePageChange}){
   const columns=[
     {
       title:'用户名',
@@ -46,7 +46,7 @@ function UserList({dataSource,pagination,handleUpdate}){
       dataSource={dataSource}
       columns={columns}
       pagination={pagination}
-      onChange={(page)=>{console.log(page);}}
+      onChange={handlePageChange}
       rowKey="id"
       />
   )
@@ -55,7 +55,8 @@ function UserList({dataSource,pagination,handleUpdate}){
 UserList.propTypes={
   dataSource:PropTypes.array,
   pagination:PropTypes.object,
-  handleUpdate:PropTypes.func
+  handleUpdate:PropTypes.func,
+  handlePageChange:PropTypes.func
 }
 
 export default UserList;

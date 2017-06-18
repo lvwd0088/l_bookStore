@@ -35,10 +35,23 @@ export default {
         ...action.payload
       }
     },
+    resetUserFilter(state,action){
+      return{
+        ...state,
+        userType:1,
+        datePickerValue:null,
+        searchValue:null
+      }
+    },
     querySuccess(state,action){
-      const {list}=action.payload;
+      const {list,current,total,pageSize}=action.payload.data;
       return {
         ...state,
+        pagination:{
+          current,
+          total,
+          pageSize
+        },
         list
       }
     }
@@ -50,7 +63,7 @@ export default {
       yield put({
         type:'querySuccess',
         payload:{
-          list:data
+          data
         }
       });
     }
@@ -63,6 +76,10 @@ export default {
             dispatch({
               type:'fetch',
               payload:query
+            });
+            dispatch({
+              type:'resetUserFilter',
+              payload:null
             })
           }
         }

@@ -20,6 +20,9 @@ function User({user,dispatch}) {
           currentItem:data
         }
       })
+    },
+    handlePageChange(page){
+      handleFetch("page",page);
     }
   }
 
@@ -58,6 +61,12 @@ function User({user,dispatch}) {
           userType:e.target.value
         }
       });
+      let params={
+        searchValue,
+        userType,
+        datePickerValue
+      };
+      handleFetch("userType",e.target.value);
     },
     handleDatePickerSearch(value,dateString){
       dispatch({
@@ -66,6 +75,7 @@ function User({user,dispatch}) {
           datePickerValue:value
         }
       });
+      handleFetch("datePickerValue",value);
     },
     handleInputSearch(value){
       dispatch({
@@ -74,10 +84,53 @@ function User({user,dispatch}) {
           searchValue:value
         }
       });
+      handleFetch("condition",value);
+      // let params={
+      //   searchValue,
+      //   userType,
+      //   datePickerValue
+      // };
+      // params.searchValue=value;
+      // handleFetch(params);
     },
     userType,
     searchValue,
     datePickerValue
+  }
+
+  function handleFetch(type,value){
+    let params={
+      condition:searchValue,
+      userType
+    };
+    if(typeof value ==='object'){
+      if(value instanceof Array){
+        if(value.length>0){
+          params.beginTime=handleFormatMoment(value[0]);
+          params.endTime=handleFormatMoment(value[1]);
+        }
+      }else{
+        params.current=value.current;
+        params.pageSize=value.pageSize;
+      }
+    }else{
+      params[type]=value;
+    }
+    if(datePickerValue&&!params.beginTime){
+      params.beginTime=handleFormatMoment(datePickerValue[0]);
+      params.endTime=handleFormatMoment(datePickerValue[1]);
+    }
+    dispatch({
+      type:'user/fetch',
+      payload:params
+    });
+  }
+
+  function handleFormatMoment(moment){
+    if(moment){
+      return moment.format('YYYY-MM-DD');
+    }
+    return null;
   }
 
   return (
