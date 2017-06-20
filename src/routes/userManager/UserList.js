@@ -5,8 +5,8 @@ function UserList({dataSource,pagination,handleUpdate,handlePageChange}){
   const columns=[
     {
       title:'用户名',
-      key:"userName",
-      dataIndex:"userName"
+      key:"nickName",
+      dataIndex:"nickName"
     },
     {
       title:'手机号',
@@ -21,7 +21,14 @@ function UserList({dataSource,pagination,handleUpdate,handlePageChange}){
     {
       title:'账户类型',
       key:"accountType",
-      dataIndex:"accountType"
+      dataIndex:"accountType",
+      render:(text,record)=>{
+        if(text===1){
+          return <span>普通用户</span>
+        }else {
+          return <span>作者</span>
+        }
+      }
     },
     {
       title:'注册时间',

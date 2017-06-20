@@ -39,8 +39,8 @@ function UserModal({
       <Form>
         <FormItem label="用户名：" {...formItemLayout}>
           {
-            getFieldDecorator('userName',{
-              initialValue:item.userName,
+            getFieldDecorator('nickName',{
+              initialValue:item.nickName,
               rules:[
                 {
                   required:true,
@@ -108,8 +108,8 @@ function UserModal({
               ]
             })(
               <RadioGroup>
-                <Radio value="普通用户">普通用户</Radio>
-                <Radio value="作者">作者</Radio>
+                <Radio value="1">普通用户</Radio>
+                <Radio value="2">作者</Radio>
               </RadioGroup>
             )
           }

@@ -5,6 +5,9 @@ export function fetch(params){
   if(params.current){
     queryString+=`current=${params.current}&`;
   }
+  if(params.accountType){
+    queryString+=`accountType=${params.accountType}&`;
+  }
   if(params.pageSize){
     queryString+=`pageSize=${params.pageSize}&`;
   }

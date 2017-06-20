@@ -7,7 +7,7 @@ import UserModal from './UserModal';
 
 function User({user,dispatch}) {
 
-  const {list,pagination,currentItem,modalVisible,modalType,userType,searchValue,datePickerValue} = user;
+  const {list,pagination,currentItem,modalVisible,modalType,accountType,searchValue,datePickerValue} = user;
 
   const userListProps={
     dataSource:list,
@@ -54,19 +54,19 @@ function User({user,dispatch}) {
         }
       })
     },
-    handleUserTypeChange(e){
+    handleaccountTypeChange(e){
       dispatch({
         type:'user/changeUserFilter',
         payload:{
-          userType:e.target.value
+          accountType:e.target.value
         }
       });
       let params={
         searchValue,
-        userType,
+        accountType,
         datePickerValue
       };
-      handleFetch("userType",e.target.value);
+      handleFetch("accountType",e.target.value);
     },
     handleDatePickerSearch(value,dateString){
       dispatch({
@@ -87,13 +87,13 @@ function User({user,dispatch}) {
       handleFetch("condition",value);
       // let params={
       //   searchValue,
-      //   userType,
+      //   accountType,
       //   datePickerValue
       // };
       // params.searchValue=value;
       // handleFetch(params);
     },
-    userType,
+    accountType,
     searchValue,
     datePickerValue
   }
@@ -101,7 +101,7 @@ function User({user,dispatch}) {
   function handleFetch(type,value){
     let params={
       condition:searchValue,
-      userType
+      accountType
     };
     if(typeof value ==='object'){
       if(value instanceof Array){
@@ -116,7 +116,7 @@ function User({user,dispatch}) {
     }else{
       params[type]=value;
     }
-    if(datePickerValue&&!params.beginTime){
+    if(datePickerValue&&(!value instanceof Array)){
       params.beginTime=handleFormatMoment(datePickerValue[0]);
       params.endTime=handleFormatMoment(datePickerValue[1]);
     }

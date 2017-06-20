@@ -7,8 +7,7 @@ const {RangePicker} =DatePicker;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-function UserFilter({handleCreate,userType,searchValue,datePickerValue,handleUserTypeChange,handleDatePickerSearch,handleInputSearch}){
-  console.log(searchValue,datePickerValue);
+function UserFilter({handleCreate,accountType,searchValue,datePickerValue,handleaccountTypeChange,handleDatePickerSearch,handleInputSearch}){
   return (
     <div className={styles.userFilter}>
       <Form layout="inline">
@@ -34,10 +33,10 @@ function UserFilter({handleCreate,userType,searchValue,datePickerValue,handleUse
           </Col>
           <Col span={6}>
             <FormItem label="用户类型">
-              <RadioGroup value={userType} onChange={handleUserTypeChange}>
-                <Radio value={1}>全部</Radio>
-                <Radio value={2}>普通用户</Radio>
-                <Radio value={3}>作者</Radio>
+              <RadioGroup value={accountType} onChange={handleaccountTypeChange}>
+                <Radio value={0}>全部</Radio>
+                <Radio value={1}>普通用户</Radio>
+                <Radio value={2}>作者</Radio>
               </RadioGroup>
             </FormItem>
           </Col>
@@ -54,10 +53,10 @@ function UserFilter({handleCreate,userType,searchValue,datePickerValue,handleUse
 
 UserFilter.propTypes={
   handleCreate:PropTypes.func,
-  handleUserTypeChange:PropTypes.func,
+  handleaccountTypeChange:PropTypes.func,
   handleDatePickerSearch:PropTypes.func,
   handleInputSearch:PropTypes.func,
-  userType:PropTypes.number,
+  accountType:PropTypes.number,
   searchValue:PropTypes.string,
   datePickerValue:PropTypes.array
 }

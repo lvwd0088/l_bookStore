@@ -11,7 +11,7 @@ export default {
     currentItem:{},
     modalVisible:false,
     modalType:'create',
-    userType:1,
+    accountType:1,
     searchValue:null,
     datePickerValue:null
   },
@@ -38,7 +38,7 @@ export default {
     resetUserFilter(state,action){
       return{
         ...state,
-        userType:1,
+        accountType:0,
         datePickerValue:null,
         searchValue:null
       }
