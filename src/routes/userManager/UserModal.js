@@ -34,6 +34,7 @@ function UserModal({
     onCancel:handleCancel
   }
 
+
   return (
     <Modal {...modalProps}>
       <Form>
@@ -90,8 +91,8 @@ function UserModal({
             })
             (
               <RadioGroup>
-                <Radio value="男">男</Radio>
-                <Radio value="女">女</Radio>
+                <Radio value={0}>男</Radio>
+                <Radio value={1}>女</Radio>
               </RadioGroup>
             )
           }
@@ -108,8 +109,8 @@ function UserModal({
               ]
             })(
               <RadioGroup>
-                <Radio value="1">普通用户</Radio>
-                <Radio value="2">作者</Radio>
+                <Radio value={1}>普通用户</Radio>
+                <Radio value={2}>作者</Radio>
               </RadioGroup>
             )
           }

@@ -133,11 +133,14 @@ function User({user,dispatch}) {
     return null;
   }
 
+  const UserModalGen = () =>
+    <UserModal {...userModalProps} />
+
   return (
     <div className={styles.normal}>
       <UserFilter {...UserFilterProps}/>
       <UserList {...userListProps} />
-      <UserModal {...userModalProps} />
+      <UserModalGen />
     </div>
   );
 }
