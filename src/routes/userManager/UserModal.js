@@ -27,13 +27,25 @@ function UserModal({
     },
   };
 
+  const onOk=()=>{
+    validateFields((errors) => {
+      if (errors) {
+        return
+      }
+      const data = {
+        ...getFieldsValue(),
+        id:item.id
+      }
+      handleSave(data)
+    })
+  }
+
   const modalProps={
     title:`${type==='create'?'创建用户':'修改用户'}`,
     visible,
-    onOk:handleSave,
+    onOk:onOk,
     onCancel:handleCancel
   }
-
 
   return (
     <Modal {...modalProps}>
@@ -125,7 +137,7 @@ function UserModal({
                   message:'账户余额未填写'
                 }
               ]
-            })(<InputNumber placeholder="请填写账户余额" style={{width:125}} />)
+            })(<InputNumber placeholder="请填写账户余额" style={{width:125}} min={0} />)
           }
         </FormItem>
       </Form>

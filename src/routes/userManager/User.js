@@ -31,7 +31,8 @@ function User({user,dispatch}) {
     visible:modalVisible,
     type:modalType,
     item:modalType==='create'?{}:currentItem,
-    handleSave(){
+    handleSave(data){
+      console.log(data);
       dispatch({
         type:'user/hideModal',
         payload:{}
