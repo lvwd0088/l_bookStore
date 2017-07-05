@@ -32,11 +32,14 @@ function User({user,dispatch}) {
     type:modalType,
     item:modalType==='create'?{}:currentItem,
     handleSave(data){
-      console.log(data);
       dispatch({
-        type:'user/hideModal',
-        payload:{}
-      })
+        type:'user/update',
+        payload:data
+      });
+      // dispatch({
+      //   type:'user/hideModal',
+      //   payload:{}
+      // });
     },
     handleCancel(){
       dispatch({

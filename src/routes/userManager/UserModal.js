@@ -47,6 +47,19 @@ function UserModal({
     onCancel:handleCancel
   }
 
+  const checkMobile=(rule,value,callback)=>{
+    if(value&&value.trim()){
+      var regex = /^(((13[0-9]{1})|(147)|(15[0-3]{1})|(15[5-9]{1})|(180)|(182)|(18[5-9]{1}))+\d{8})$/;
+      if(regex.test(value)){
+        callback();
+      }else{
+        callback("请填写正确的手机号码");
+      }
+    }else{
+      callback("手机号未填写");
+    }
+  }
+
   return (
     <Modal {...modalProps}>
       <Form>
@@ -58,8 +71,12 @@ function UserModal({
                 {
                   required:true,
                   message:'用户名未填写'
+                },
+                {
+                  whitespace:true
                 }
-              ]
+              ],
+              validateTrigger:'onBlur'
             })(<Input placeholder="请填写用户名" />)
           }
         </FormItem>
@@ -69,10 +86,15 @@ function UserModal({
               initialValue:item.mobile,
               rules:[
                 {
-                  required:true,
-                  message:'手机号未填写'
+                  // pattern:'/^(((13[0-9]{1})|(147)|(15[0-3]{1})|(15[5-9]{1})|(180)|(182)|(18[5-9]{1}))+\d{8})$/',
+                  // message:'请填写正确的手机号码'
+                  validator:checkMobile
+                },
+                {
+                  whitespace:true
                 }
-              ]
+              ],
+              validateTrigger:'onBlur'
             })(<Input placeholder="请填写手机号" />)
           }
         </FormItem>
@@ -84,25 +106,30 @@ function UserModal({
                 {
                   required:true,
                   type:'email',
-                  message:'邮箱未填写'
+                  message:'请填写正确的邮箱'
+                },
+                {
+                  whitespace:true
                 }
-              ]
-            })(<Input placeholder="邮箱用户名" />)
+              ],
+              validateTrigger:'onBlur'
+            })(<Input placeholder="邮箱" />)
           }
         </FormItem>
         <FormItem label="性别：" {...formItemLayout}>
           {
             getFieldDecorator('sex',{
-              initialValue:item.sex,
+              initialValue:item.sex||0,
               rules:[
                 {
                   required:true,
                   message:'性别未填写'
                 }
-              ]
+              ],
+              validateTrigger:'onBlur'
             })
             (
-              <RadioGroup>
+              <RadioGroup def>
                 <Radio value={0}>男</Radio>
                 <Radio value={1}>女</Radio>
               </RadioGroup>
@@ -112,11 +139,11 @@ function UserModal({
         <FormItem label="账户类型：" {...formItemLayout}>
           {
             getFieldDecorator('accountType',{
-              initialValue:item.accountType,
+              initialValue:item.accountType||1,
               rules:[
                 {
                   required:true,
-                  message:'账户类型未填写'
+                  message:'账户类型未选择'
                 }
               ]
             })(
@@ -136,7 +163,8 @@ function UserModal({
                   required:true,
                   message:'账户余额未填写'
                 }
-              ]
+              ],
+              validateTrigger:'onBlur'
             })(<InputNumber placeholder="请填写账户余额" style={{width:125}} min={0} />)
           }
         </FormItem>

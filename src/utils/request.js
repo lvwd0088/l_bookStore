@@ -37,8 +37,21 @@ export function remove(url){
 }
 
 export function patchUpdate(url,data){
+  return request(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export function postSave(url,data){
   return request(url,{
-    method:'patch',
+    method:'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body:JSON.stringify(data)
   })
 }

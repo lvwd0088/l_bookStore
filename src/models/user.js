@@ -54,7 +54,7 @@ export default {
         },
         list
       }
-    }
+    },
   },
   effects: {
     *fetch({payload},{call,put}){
@@ -62,6 +62,16 @@ export default {
       const {data}=respObj.data;
       yield put({
         type:'querySuccess',
+        payload:{
+          data
+        }
+      });
+    },
+    *update({payload},{call,put}){
+      const respObj=yield call(userService.update,payload);
+      const {data}=respObj.data;
+      yield put({
+        type:'hideModal',
         payload:{
           data
         }
