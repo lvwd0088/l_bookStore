@@ -1,4 +1,5 @@
 import fetch from 'dva/fetch';
+import { message } from 'antd';
 
 function parseJSON(response) {
   return response.json();
@@ -12,7 +13,13 @@ function checkStatus(response) {
   }
 
   return response;
+}
 
+function parseErrorMessage({ code,msg,data }) {
+  if (code === 8) {
+    message.success('加载成功啦', 5);
+  }
+  return { data };
 }
 
 /**
@@ -26,8 +33,7 @@ export function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then(parseErrorMessage);
 }
 
 export function remove(url){

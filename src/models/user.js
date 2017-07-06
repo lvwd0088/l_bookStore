@@ -59,7 +59,7 @@ export default {
   effects: {
     *fetch({payload},{call,put}){
       const respObj=yield call(userService.fetch,payload);
-      const {data}=respObj.data;
+      const {data}=respObj;
       yield put({
         type:'querySuccess',
         payload:{
@@ -67,13 +67,14 @@ export default {
         }
       });
     },
-    *update({payload},{call,put}){
+    *update({payload},{call,put,select}){
       const respObj=yield call(userService.update,payload);
-      const {data}=respObj.data;
+      console.log(respObj);
+      const state = yield select();
       yield put({
         type:'hideModal',
         payload:{
-          data
+          success:true
         }
       });
     }

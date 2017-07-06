@@ -1,12 +1,18 @@
 import React, { PropTypes }  from 'react';
 import { connect } from 'dva';
 import styles from './App.css';
-import { Layout,Icon,Menu } from 'antd';
+import { Layout,Icon,Menu,message } from 'antd';
 import { Link } from 'dva/router';
 const {Header,Sider,Content} = Layout;
 const {SubMenu} = Menu;
 
-function App({children}) {
+function App({app,children}) {
+  const {msg}=app;
+
+  // if(msg){
+  //   console.log("will boom");
+  //   message.success('This is a prompt message for success, and it will disappear in 10 seconds', 5);
+  // }
 
   return (
     <div className={styles.normal}>
@@ -70,8 +76,8 @@ function App({children}) {
   );
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps({app}) {
+  return {app};
 }
 
 App.propTypes={
