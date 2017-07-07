@@ -1,5 +1,6 @@
 import {query} from '../services/user'
 import * as userService from '../services/user';
+import { message } from 'antd';
 
 export default {
   namespace: 'user',
@@ -69,13 +70,33 @@ export default {
     },
     *update({payload},{call,put,select}){
       const respObj=yield call(userService.update,payload);
-      console.log(respObj);
+      message.success("保存成功");
       const state = yield select();
       yield put({
         type:'hideModal',
         payload:{
           success:true
         }
+      });
+      const userState=state.user;
+      const {searchValue,accountType,datePickerValue,pagination} = userState;
+      let params={
+        current:pagination.current,
+        pageSize:pagination.pageSize,
+        condition:searchValue,
+        accountType
+      }
+      if(typeof datePickerValue ==='object'){
+        if(datePickerValue instanceof Array){
+          if(value.length>0){
+            params.beginTime=handleFormatMoment(value[0]);
+            params.endTime=handleFormatMoment(value[1]);
+          }
+        }
+      }
+      yield put({
+        type:'fetch',
+        payload:params
       });
     }
   },

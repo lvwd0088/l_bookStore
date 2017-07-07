@@ -16,9 +16,9 @@ function checkStatus(response) {
 }
 
 function parseErrorMessage({ code,msg,data }) {
-  if (code === 8) {
-    message.success('加载成功啦', 5);
-  }
+  if (code !== 8) {
+    message.error('加载成功啦', 5);
+  } 
   return { data };
 }
 
