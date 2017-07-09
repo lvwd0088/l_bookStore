@@ -56,7 +56,7 @@ function UserModal({
         callback("请填写正确的手机号码");
       }
     }else{
-      callback("手机号未填写");
+      callback();
     }
   }
 
@@ -77,7 +77,7 @@ function UserModal({
                 }
               ],
               validateTrigger:'onBlur'
-            })(<Input placeholder="请填写用户名" />)
+            })(<Input placeholder="请填写用户名" disabled={type==='create'?false:true} />)
           }
         </FormItem>
         <FormItem label="手机号：" {...formItemLayout}>
@@ -91,11 +91,15 @@ function UserModal({
                   validator:checkMobile
                 },
                 {
+                  required:true,
+                  message:'手机号未填写'
+                },
+                {
                   whitespace:true
                 }
               ],
               validateTrigger:'onBlur'
-            })(<Input placeholder="请填写手机号" />)
+            })(<Input placeholder="请填写手机号" disabled={type==='create'?false:true} />)
           }
         </FormItem>
         <FormItem label="邮箱：" {...formItemLayout}>
@@ -113,7 +117,7 @@ function UserModal({
                 }
               ],
               validateTrigger:'onBlur'
-            })(<Input placeholder="邮箱" />)
+            })(<Input placeholder="邮箱" disabled={type==='create'?false:true} />)
           }
         </FormItem>
         <FormItem label="性别：" {...formItemLayout}>
@@ -129,7 +133,7 @@ function UserModal({
               validateTrigger:'onBlur'
             })
             (
-              <RadioGroup def>
+              <RadioGroup  disabled={type==='create'?false:true}>
                 <Radio value={0}>男</Radio>
                 <Radio value={1}>女</Radio>
               </RadioGroup>

@@ -8,7 +8,7 @@ const app = dva({
     if(msg){
       console.log(msg);
     }
-    message.success('This is a prompt message for success, and it will disappear in 10 seconds', 5);
+    message.error('网络连接失败，请重试', 5);
     // dispatch({
     //   type:'app/showErrorMessage',
     //   payload:{

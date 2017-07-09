@@ -68,9 +68,23 @@ export default {
         }
       });
     },
+    *save({payload},{call,put}){
+      const respObj=yield call(userService.save,payload);
+      message.success("保存成功");
+      yield put({
+        type:'hideModal',
+        payload:{
+          success:true
+        }
+      });
+      yield put({
+        type:'fetch',
+        payload:{}
+      });
+    },
     *update({payload},{call,put,select}){
       const respObj=yield call(userService.update,payload);
-      message.success("保存成功");
+      message.success("编辑成功");
       const state = yield select();
       yield put({
         type:'hideModal',
