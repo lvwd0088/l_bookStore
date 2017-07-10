@@ -17,7 +17,10 @@ function checkStatus(response) {
 
 function parseErrorMessage({ code,msg,data }) {
   if (code !== 8) {
-    message.error('加载成功啦', 5);
+    message.error(msg, 5);
+    const error = new Error(msg);
+    // error.response = response;
+    throw error;
   }
   return { data };
 }
@@ -29,11 +32,13 @@ function parseErrorMessage({ code,msg,data }) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export function request(url, options, customMsg) {
+export function request(url, options, customCallback) {
   let resp=fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
-  if (customMsg) {
+  if (customCallback) {
+    resp.then(customCallback)
+  }else{
     resp.then(parseErrorMessage);
   }
   return resp;
@@ -55,12 +60,12 @@ export function patchUpdate(url,data){
   });
 }
 
-export function postSave(url,data,customMsg){
+export function postSave(url,data,customCallback){
   return request(url,{
     method:'post',
     headers: {
       'Content-Type': 'application/json',
     },
     body:JSON.stringify(data)
-  },customMsg);
+  },customCallback);
 }

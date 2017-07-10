@@ -69,7 +69,19 @@ export default {
       });
     },
     *save({payload},{call,put}){
-      const respObj=yield call(userService.save,payload);
+      const respObj=yield call(userService.save,payload,({ code,msg})=>{
+        console.log(code,msg);
+        // console.log(resp);
+        if(code===1201){
+          message.error("用户名或邮箱或手机已被占用，请检查！");
+          const error = new Error(msg);
+          throw error;
+        }
+        // else{
+        //   resp.then(cb);
+        // }
+      });
+      console.log(respObj);
       message.success("保存成功");
       yield put({
         type:'hideModal',
