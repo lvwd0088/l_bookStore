@@ -11,7 +11,11 @@ function User({user,dispatch}) {
 
   const userListProps={
     dataSource:list,
-    pagination,
+    pagination:{
+      ...pagination,
+      showSizeChanger:true,
+      showTotal:(total)=>`共${total}条`
+    },
     handleUpdate(data){
       dispatch({
         type:'user/showModal',
@@ -34,7 +38,7 @@ function User({user,dispatch}) {
     handleSave(data){
       if(modalType==='create'){
         dispatch({
-          type:'user/save',
+          type:'user/update',
           payload:data
         });
       }else{
