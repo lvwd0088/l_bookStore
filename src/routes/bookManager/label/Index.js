@@ -8,7 +8,7 @@ function BookLabel({bookLabel,dispatch}) {
   const {list,inputVisible} = bookLabel;
   const tagsJSX=[];
   const labelInput= input => this.input = input
-  
+
   list.map((data,index)=>{
     tagsJSX.push(
       <Tag

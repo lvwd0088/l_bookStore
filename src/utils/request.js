@@ -6,6 +6,7 @@ function parseJSON(response) {
 }
 
 function checkStatus(response) {
+  console.log(response.status);
   if(response.status<200||response.status>=300){
     const error = new Error(response.statusText);
     error.response = response;
