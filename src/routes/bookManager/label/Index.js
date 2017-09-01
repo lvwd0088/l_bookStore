@@ -10,22 +10,24 @@ function BookLabel({bookLabel,dispatch}) {
   const labelInput= input => this.input = input
 
   list.map((data,index)=>{
+    console.log(data.id);
     tagsJSX.push(
       <Tag
         key={`${data.name}-${index}`}
-        closable={!data.count>0}
-        afterClose={handleDelete.bind(this)}
+        closable={data.count&&data.count>0?false:true}
+        afterClose={handleDelete.bind(this,data.id)}
         style={{height:"32px",lineHeight:"32px"}}>
-        {data.name.length>6?`${data.name.slice(0,6)}...`:data.name}{`(${data.count})`}
+        {data.name.length>6?`${data.name.slice(0,6)}...`:data.name}{`(${data.count||0})`}
       </Tag>
     );
   });
 
-  function handleDelete(index){
+  function handleDelete(key){
+    let id={id:key};
     dispatch({
       type:'bookLabel/deleteTag',
       payload:{
-        index
+          ...id
       }
     });
   }
@@ -43,8 +45,7 @@ function BookLabel({bookLabel,dispatch}) {
       dispatch({
         type:'bookLabel/saveTag',
         payload:{
-          name:e.target.value.trim(),
-          count:0
+          name:e.target.value.trim()
         }
       });
     }else{
