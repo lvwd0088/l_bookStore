@@ -85,7 +85,7 @@ function TypeModal(
         <FormItem label="分类简介" {...formItemLayout}>
           {
             getFieldDecorator('typeDesc',{
-              initialValue:item.desc,
+              initialValue:item.description,
               rules:[
                 {
                   required:true,
