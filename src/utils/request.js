@@ -6,7 +6,6 @@ function parseJSON(response) {
 }
 
 function checkStatus(response) {
-  console.log(response.status);
   if(response.status<200||response.status>=300){
     const error = new Error(response.statusText);
     error.response = response;
@@ -18,6 +17,11 @@ function checkStatus(response) {
 
 function parseErrorMessage({ code,msg,data }) {
   if (code !== 8) {
+    if (!msg) {
+      if (code === 1301) {
+        msg = '参数错误';
+      }
+    }
     message.error(msg, 5);
     const error = new Error(msg);
     // error.response = response;
@@ -54,6 +58,16 @@ export function remove(url){
 export function patchUpdate(url,data){
   return request(url, {
     method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export function putUpdate(url,data){
+  return request(url, {
+    method: 'put',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -3,64 +3,7 @@ import { message } from 'antd';
 export default {
   namespace: 'bookType',
   state: {
-    list:[
-      {
-        id:1,
-        name:'玄幻',
-        description:'玄幻',
-        children:[
-          {
-            id:11,
-            name:'玄幻',
-            description:'玄幻',
-            parent:'1'
-          },
-          {
-            id:12,
-            name:'玄幻',
-            description:'玄幻',
-            parent:'1'
-          },
-          {
-            id:13,
-            name:'玄幻',
-            description:'玄幻',
-            parent:'1'
-          },
-          {
-            id:14,
-            name:'玄幻',
-            description:'玄幻',
-            parent:'1'
-          },
-        ]
-      },
-      {
-        id:2,
-        name:'玄幻',
-        description:'玄幻'
-      },
-      {
-        id:3,
-        name:'玄幻',
-        description:'玄幻'
-      },
-      {
-        id:4,
-        name:'玄幻',
-        description:'玄幻'
-      },
-      {
-        id:5,
-        name:'玄幻',
-        description:'玄幻'
-      },
-      {
-        id:6,
-        name:'玄幻',
-        description:'玄幻'
-      },
-    ],
+    list:[],
     pagination:{
       pageSize:5
     },
@@ -108,6 +51,46 @@ export default {
         }
       });
     },
+    *save({payload},{call,put}){
+      const respObj=yield call(bookTypeService.save,payload);
+      const {data,code}=respObj;
+      if (code !== 8) {
+        return;
+      }
+      // const data=[];
+        yield put({
+          type:'hideModal',
+          payload:{}
+        });
+      yield put({
+        type:'fetch',
+        payload:{}
+      });
+    },
+    *update({payload},{call,put}){
+      const respObj=yield call(bookTypeService.update,payload);
+      const {data,code}=respObj;
+      if (code === 8) {
+        message.success("修改成功");
+        yield put({
+          type:'hideModal',
+          payload:{}
+        });
+        yield put({
+          type:'fetch',
+          payload:{}
+        });
+      }
+    },
+    *delete({payload},{call,put}){
+      const respObj=yield call(bookTypeService.deleteType,payload);
+      const {data}=respObj;
+      // const data=[];
+      yield put({
+        type:'fetch',
+        payload:{}
+      });
+    }
   },
   subscriptions: {
     setup({dispatch,history}){

@@ -35,7 +35,7 @@ function TypeModal(
       }
       const data = {
         ...getFieldsValue(),
-        // key: item.key,
+        id: item.id,
       }
       handleOk(data)
     })
@@ -71,7 +71,7 @@ function TypeModal(
       <Form>
         <FormItem label="分类名称" {...formItemLayout}>
           {
-            getFieldDecorator('typeName',{
+            getFieldDecorator('name',{
               initialValue:item.name,
               rules:[
                 {
@@ -84,7 +84,7 @@ function TypeModal(
         </FormItem>
         <FormItem label="分类简介" {...formItemLayout}>
           {
-            getFieldDecorator('typeDesc',{
+            getFieldDecorator('description',{
               initialValue:item.description,
               rules:[
                 {

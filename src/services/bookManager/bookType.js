@@ -9,9 +9,10 @@ export function save(data,customCallback){
 }
 
 export function update(data){
+  console.log(data);
   return patchUpdate(`http://127.0.0.1:8080/bookType`,data);
 }
 
-export function deleteTag(data){
+export function deleteType(data){
   return remove(`http://127.0.0.1:8080/bookType/${data.id}`);
 }

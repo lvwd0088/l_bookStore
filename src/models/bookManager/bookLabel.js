@@ -4,32 +4,7 @@ export default {
   namespace: 'bookLabel',
   state: {
     inputVisible:false,
-    list:[
-      {
-        name:"穿越时空",
-        count:10,
-      },
-      {
-        name:"都市情缘",
-        count:15,
-      },
-      {
-        name:"重生",
-        count:0
-      },
-      {
-        name:"宫廷侯爵",
-        count:5
-      },
-      {
-        name:"布衣生活",
-        count:0
-      },
-      {
-        name:"花季雨季",
-        count:20
-      },
-    ]
+    list:[]
   },
   reducers: {
     querySuccess(state,action){

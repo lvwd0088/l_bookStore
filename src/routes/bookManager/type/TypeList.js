@@ -21,8 +21,8 @@ function TypeList(
     },
     {
       title: '分类简介',
-      dataIndex: 'desc',
-      key: 'desc',
+      dataIndex: 'description',
+      key: 'description',
       width:'60%'
     },
     {

@@ -10,7 +10,6 @@ function BookLabel({bookLabel,dispatch}) {
   const labelInput= input => this.input = input
 
   list.map((data,index)=>{
-    console.log(data.id);
     tagsJSX.push(
       <Tag
         key={`${data.name}-${index}`}

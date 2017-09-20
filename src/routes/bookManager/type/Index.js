@@ -9,8 +9,6 @@ function BookType({bookType,dispatch}) {
 
   const {list,pagination,modalVisible,modalType,item} = bookType;
 
-  console.log(item);
-
   function handleShowModal(payload){
     dispatch({
       type:'bookType/showModal',
@@ -18,12 +16,6 @@ function BookType({bookType,dispatch}) {
     })
   }
 
-  function handleHideModal(payload){
-    dispatch({
-      type:'bookType/hideModal',
-      payload
-    })
-  }
 
   function handleCreateParent(){
     handleShowModal({
@@ -66,15 +58,23 @@ function BookType({bookType,dispatch}) {
     type:modalType,
     item,
     handleCancel(){
-      handleHideModal({
-        item:{}
+      dispatch({
+        type:'bookType/hideModal',
+        payload:{}
       })
     },
     handleOk(data){
-      console.log(data);
-      handleHideModal({
-        item:{}
-      })
+      if (data.id) {
+        dispatch({
+          type:'bookType/update',
+          payload:data
+        });
+      }else{
+        dispatch({
+          type:'bookType/save',
+          payload:data
+        });
+      }
     }
   }
 
