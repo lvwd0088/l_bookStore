@@ -7,7 +7,7 @@ import TypeModal from './TypeModal';
 
 function BookType({bookType,dispatch}) {
 
-  const {list,pagination,modalVisible,modalType,item} = bookType;
+  const {list,pagination,modalVisible,modalType,item,parent} = bookType;
 
   function handleShowModal(payload){
     dispatch({
@@ -28,24 +28,26 @@ function BookType({bookType,dispatch}) {
     dataSource:list,
     pagination,
     handleDetele(id){
-      console.log(id);
+      dispatch({
+        type:'bookType/delete',
+        payload:{
+          id
+        }
+      })
     },
     handleEditParent(record){
-      console.log(record);
       handleShowModal({
         modalType:'editParent',
         item:record
       });
     },
-    handleCreateSon(){
-      console.log("handleCreateSon");
+    handleCreateSon(parent){
       handleShowModal({
         modalType:'createSon',
-        item:{}
+        parent
       });
     },
     handleEditSon(record){
-      console.log(record);
       handleShowModal({
         modalType:'editSon',
         item:record
@@ -57,6 +59,7 @@ function BookType({bookType,dispatch}) {
     visible:modalVisible,
     type:modalType,
     item,
+    parent,
     handleCancel(){
       dispatch({
         type:'bookType/hideModal',
@@ -78,6 +81,9 @@ function BookType({bookType,dispatch}) {
     }
   }
 
+  const TypeModalGen=()=>
+    <TypeModal {...modalProps} />;
+
   return (
     <div className={styles.normal}>
       <div className={styles.tableTitle}>
@@ -86,7 +92,7 @@ function BookType({bookType,dispatch}) {
       <div className="tableBody">
         <TypeList {...tableProps}/>
       </div>
-      <TypeModal {...modalProps} />
+      <TypeModalGen />
     </div>
   );
 }

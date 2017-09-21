@@ -9,7 +9,8 @@ export default {
     },
     modalVisible:false,
     modalType:"createParent",
-    item:{}
+    item:{},
+    parent
   },
   reducers: {
     showModal(state,action){
@@ -29,9 +30,13 @@ export default {
     querySuccess(state,action){
       const list=action.payload.data;
       list.map((data,i)=>{
-        data.children.map((children,j)=>{
-          delete children.children;
-        });
+        if (data.children && data.children.length > 0) {
+          data.children.map((children,j)=>{
+            delete children.children;
+          });
+        }else {
+          delete data.children;
+        }
       });
       return {
         ...state,
@@ -57,11 +62,11 @@ export default {
       if (code !== 8) {
         return;
       }
-      // const data=[];
-        yield put({
-          type:'hideModal',
-          payload:{}
-        });
+      message.success("保存成功");
+      yield put({
+        type:'hideModal',
+        payload:{}
+      });
       yield put({
         type:'fetch',
         payload:{}
@@ -84,12 +89,15 @@ export default {
     },
     *delete({payload},{call,put}){
       const respObj=yield call(bookTypeService.deleteType,payload);
-      const {data}=respObj;
+      const {data, code}=respObj;
+      if (code === 8) {
+        message.success("删除成功");
+        yield put({
+          type:'fetch',
+          payload:{}
+        });
+      }
       // const data=[];
-      yield put({
-        type:'fetch',
-        payload:{}
-      });
     }
   },
   subscriptions: {

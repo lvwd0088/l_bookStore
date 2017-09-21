@@ -12,6 +12,7 @@ function TypeModal(
       getFieldsValue,
     },
     item,
+    parent,
     handleCancel,
     handleOk
   }
@@ -36,6 +37,7 @@ function TypeModal(
       const data = {
         ...getFieldsValue(),
         id: item.id,
+        parent
       }
       handleOk(data)
     })

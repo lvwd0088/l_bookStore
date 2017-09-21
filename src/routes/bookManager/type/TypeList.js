@@ -1,5 +1,5 @@
 import React,{PropTypes} from 'react';
-import { Table} from 'antd';
+import { Table, Popconfirm } from 'antd';
 
 function TypeList(
   {
@@ -33,7 +33,7 @@ function TypeList(
           {
             !record.parent&&(
               <span>
-                <a onClick={()=>{handleCreateSon()}}>添加子分类</a>
+                <a onClick={()=>{handleCreateSon(record.id)}}>添加子分类</a>
                 <span className="ant-divider" />
               </span>
             )
@@ -43,7 +43,14 @@ function TypeList(
             <span className="ant-divider" />
           </span>
           <span>
-            <a onClick={()=>{handleDetele(record.id)}}>删除</a>
+            <Popconfirm
+              title="确定要删除吗?(删除后无法恢复)"
+              okText="确定"
+              cancelText="取消"
+              onConfirm={()=>{handleDetele(record.id)}}
+              >
+              <a >删除</a>
+            </Popconfirm>
           </span>
         </span>
       )
